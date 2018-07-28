@@ -1,0 +1,14 @@
+---
+- name: Stop netdata service & remove from rc.conf
+  become: true
+  service:
+    name: netdata
+    state: stopped
+    enabled: no
+
+- name: Remove netdata and dependencies from pkgng
+  become: true
+  pkgng:
+    name: netdata
+    state: absent
+    autoremove: yes

@@ -1,0 +1,13 @@
+---
+- name: Install netdata from pkgng
+  become: true
+  pkgng:
+    name: netdata
+    state: present
+
+- name: Start netdata service & enable in rc.conf
+  become: true
+  service:
+    name: netdata
+    state: restarted
+    enabled: yes

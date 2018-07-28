@@ -8,17 +8,26 @@
   when: ansible_os_family == "RedHat"
 
 - include: install.yml
+  when: ansible_system == "Linux"
+
+- include: install_freebsd.yml
+  when: ansible_system == "FreeBSD"
 
 - include: config.yml
   when: netdata_config
 
 - include: update.yml
-  when: netdata_update
+  when: netdata_update and ansible_system == "Linux"
 
 - include: auto_updates.yml
-  when: netdata_auto_updates['enabled']
+  when: netdata_auto_updates['enabled'] and ansible_system == "Linux"
 
 - include: uninstall.yml
-  when: netdata_uninstall
+  when: netdata_uninstall and ansible_system == "Linux"
+  tags:
+    - netdata_uninstall
+
+- include: uninstall_freebsd.yml
+  when: netdata_uninstall and ansible_system == "FreeBSD"
   tags:
     - netdata_uninstall
