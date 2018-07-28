@@ -1,10 +1,16 @@
 ---
+- name: Include OS-specific variables
+  include_vars: "{{ item }}"
+  with_first_found:
+    - "{{ ansible_os_family }}.yml"
+    - "{{ ansible_system }}.yml"
+
 - name: config | Configuring Netdata
   template:
     src: netdata.conf.j2
     dest: "{{ netdata_config_file }}"
     owner: "{{ netdata_user_info['user'] }}"
-    group: root
+    group: "{{ netdata_user_info['group'] }}"
     mode: u=rx,g=rx,o=r
   notify: restart netdata
   become: true
@@ -26,7 +32,7 @@
     src: stream.conf.j2
     dest: "{{ netdata_stream_config_file }}"
     owner: "{{ netdata_user_info['user'] }}"
-    group: root
+    group: "{{ netdata_user_info['group'] }}"
     mode: u=rx,g=rx,o=r
   notify: restart netdata
   become: true

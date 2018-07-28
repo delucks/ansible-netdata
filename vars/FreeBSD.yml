@@ -1,0 +1,7 @@
+---
+config_path: /usr/local/etc/netdata
+# Defines location of Netdata configuration file
+netdata_config_file: /usr/local/etc/netdata/netdata.conf
+netdata_alarm_config_file: /usr/local/etc/netdata/health_alarm_notify.conf
+netdata_health_alarm_script: /usr/local/libexec/netdata/plugins.d/alarm-notify.sh
+netdata_stream_config_file: /usr/local/etc/netdata/stream.conf
